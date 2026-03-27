@@ -22,7 +22,7 @@ namespace Transaction.DataLogic
         {
             if (!File.Exists(_filePath))
             {
-                SaveToJson(); // create empty file
+                SaveToJson(); 
                 return;
             }
 

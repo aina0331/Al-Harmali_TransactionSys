@@ -30,7 +30,7 @@ namespace Transaction.BusinessLogic
 
         public List<Product> GetProducts()
         {
-            return _jsonRepo.GetProducts(); // or _dbRepo.GetProducts();
+            return _jsonRepo.GetProducts(); 
         }
     }
 }
