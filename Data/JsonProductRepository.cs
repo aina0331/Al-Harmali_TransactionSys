@@ -1,60 +1,51 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text.Json;
 using Transaction.Models;
-using System.Collections.Generic;
 
 namespace Transaction.DataLogic
 {
     public class JsonProductRepository
     {
-        private readonly string _filePath = $"{AppDomain.CurrentDomain.BaseDirectory}/Products.json";
-        private List<Product> _products;
+        private readonly string filePath = "products.json";
 
-        public JsonProductRepository()
+        public List<Product> GetProducts()
         {
-            _products = new List<Product>();
-            LoadFromJson();
+            if (!File.Exists(filePath)) return new List<Product>();
+            var json = File.ReadAllText(filePath);
+            return JsonSerializer.Deserialize<List<Product>>(json) ?? new List<Product>();
         }
 
-        private void LoadFromJson()
+        private void SaveProducts(List<Product> products)
         {
-            if (!File.Exists(_filePath))
-            {
-                SaveToJson(); 
-                return;
-            }
-
-            var json = File.ReadAllText(_filePath);
-            var data = JsonSerializer.Deserialize<List<Product>>(json);
-            _products = data ?? new List<Product>();
+            var json = JsonSerializer.Serialize(products, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(filePath, json);
         }
 
-        private void SaveToJson()
+        public void AddProduct(Product product)
         {
-            File.WriteAllText(_filePath, JsonSerializer.Serialize(_products, new JsonSerializerOptions { WriteIndented = true }));
-        }
-
-        public void AddProduct(Product p)
-        {
-            _products.Add(p);
-            SaveToJson();
+            var products = GetProducts();
+            products.Add(product);
+            SaveProducts(products);
         }
 
         public void DeleteProduct(Guid id)
         {
-            var product = _products.FirstOrDefault(x => x.Id == id);
-            if (product != null)
-            {
-                _products.Remove(product);
-                SaveToJson();
-            }
+            var products = GetProducts();
+            products.RemoveAll(p => p.Id == id);
+            SaveProducts(products);
         }
 
-        public List<Product> GetProducts()
+        public void UpdateProduct(Product product)
         {
-            return _products;
+            var products = GetProducts();
+            var index = products.FindIndex(p => p.Id == product.Id);
+            if (index >= 0)
+            {
+                products[index] = product;
+                SaveProducts(products);
+            }
         }
     }
 }

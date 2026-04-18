@@ -7,30 +7,30 @@ namespace Transaction.BusinessLogic
 {
     public class ProductService
     {
-        private readonly JsonProductRepository _jsonRepo;
-        private readonly ProductDBRepository _dbRepo;
+        private readonly JsonProductRepository jsonRepo = new JsonProductRepository();
+        private readonly ProductDBRepository dbRepo = new ProductDBRepository();
 
-        public ProductService()
+        public void AddProduct(Product product)
         {
-            _jsonRepo = new JsonProductRepository();
-            _dbRepo = new ProductDBRepository();
-        }
-
-        public void AddProduct(Product p)
-        {
-            _jsonRepo.AddProduct(p);
-            _dbRepo.AddProduct(p);
-        }
-
-        public void DeleteProduct(Guid id)
-        {
-            _jsonRepo.DeleteProduct(id);
-            _dbRepo.DeleteProduct(id);
+            jsonRepo.AddProduct(product);
+            dbRepo.AddProduct(product);
         }
 
         public List<Product> GetProducts()
         {
-            return _jsonRepo.GetProducts(); 
+            return jsonRepo.GetProducts();
+        }
+
+        public void DeleteProduct(Guid id)
+        {
+            jsonRepo.DeleteProduct(id);
+            dbRepo.DeleteProduct(id);
+        }
+
+        public void UpdateProduct(Product product)
+        {
+            jsonRepo.UpdateProduct(product);
+            dbRepo.UpdateProduct(product);
         }
     }
 }
