@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.37111.16
+# Visual Studio Version 18
+VisualStudioVersion = 18.7.11822.327 insiders
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Al-Harmali-TransactionSystem", "Al-Harmali-TransactionSystem.csproj", "{3E6BB871-0BB5-4552-8B88-FEBEEECCC1EC}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "..\Data\Data.csproj", "{B606718F-1C4E-450D-906B-83EB956453BA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{2FB27B5A-DCAF-4FEB-B03C-96B3F6D743FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transaction.API", "..\Transaction.API\Transaction.API.csproj", "{F12B9811-BB3E-499D-8023-F2835677608D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2FB27B5A-DCAF-4FEB-B03C-96B3F6D743FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FB27B5A-DCAF-4FEB-B03C-96B3F6D743FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FB27B5A-DCAF-4FEB-B03C-96B3F6D743FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F12B9811-BB3E-499D-8023-F2835677608D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F12B9811-BB3E-499D-8023-F2835677608D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F12B9811-BB3E-499D-8023-F2835677608D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F12B9811-BB3E-499D-8023-F2835677608D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

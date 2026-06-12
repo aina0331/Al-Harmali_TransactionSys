@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Transaction.Models
 {
@@ -24,7 +25,12 @@ namespace Transaction.Models
 
         public string GetDetails()
         {
-            return $"{Company} - {Item}, Stock: {Stock}, Buy: {PurchasePrice}, Sell: {SellingPrice}";
+   
+            var phCulture = new CultureInfo("en-PH");
+            string buyPrice = PurchasePrice.ToString("C2", phCulture);
+            string sellPrice = SellingPrice.ToString("C2", phCulture);
+
+            return $"{Company} - {Item}, Stock: {Stock}, Buy: {buyPrice}, Sell: {sellPrice}";
         }
     }
 }

@@ -18,7 +18,23 @@ namespace Transaction.BusinessLogic
 
         public List<Product> GetProducts()
         {
-            return jsonRepo.GetProducts();
+            List<Product> jsonList = jsonRepo.GetProducts();
+            List<Product> dbList = dbRepo.GetProducts();
+
+            Dictionary<Guid, Product> uniqueProducts = new Dictionary<Guid, Product>();
+
+            foreach (var p in jsonList)
+            {
+                uniqueProducts[p.Id] = p;
+            }
+
+
+            foreach (var p in dbList)
+            {
+                uniqueProducts[p.Id] = p;
+            }
+
+            return new List<Product>(uniqueProducts.Values);
         }
 
         public void DeleteProduct(Guid id)

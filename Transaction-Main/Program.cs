@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Transaction.Models;
 using Transaction.BusinessLogic;
 
@@ -10,6 +11,8 @@ namespace Transaction
 
         static void Main(string[] args)
         {
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+
             Console.WriteLine("Company Transactions from Vendors.");
 
             while (true)
@@ -52,6 +55,7 @@ namespace Transaction
                     foreach (var p in products)
                     {
                         Console.WriteLine($"\nItem Number: {i}");
+                        Console.WriteLine($"ID: {p.Id}"); 
                         Console.WriteLine("Name: " + p.GetName());
                         Console.WriteLine("Company: " + p.GetCompany());
                         Console.WriteLine("Details: " + p.GetDetails());
@@ -80,22 +84,23 @@ namespace Transaction
                     foreach (var p in products)
                     {
                         Console.WriteLine($"\nItem Number: {i}");
-                        Console.WriteLine("Details: " + p.GetDetails());
+                        Console.WriteLine($"ID: {p.Id}");
+                        Console.WriteLine("Details: " + p.GetDetails()); 
                         i++;
                     }
 
-                    Console.WriteLine("Enter item number to update:");
+                    Console.WriteLine("\nEnter item number to update:");
                     int index = ReadInt() - 1;
                     if (index >= 0 && index < products.Count)
                     {
                         Product product = products[index];
 
                         Console.Write("New Company (leave blank to keep): ");
-                        string company = Console.ReadLine();
+                        string? company = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(company)) product.Company = company;
 
                         Console.Write("New Item (leave blank to keep): ");
-                        string item = Console.ReadLine();
+                        string? item = Console.ReadLine();
                         if (!string.IsNullOrWhiteSpace(item)) product.Item = item;
 
                         Console.Write("New Purchase Price (0 to keep): ");
