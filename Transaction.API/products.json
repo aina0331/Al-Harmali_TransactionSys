@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "Id": "4f990f56-0932-4c2f-900d-9394c2218798",
+    "Company": "JacknJill",
+    "Item": "Cheese Chips",
+    "PurchasePrice": 50000,
+    "SellingPrice": 51000,
+    "Stock": 4000
+  },
+  {
+    "Id": "76118600-fc6f-4e76-b07a-a53e03ba7a07",
+    "Company": "San Miguel",
+    "Item": "Beer",
+    "PurchasePrice": 50000,
+    "SellingPrice": 51000,
+    "Stock": 4000
+  },
+  {
+    "Id": "0776f2a1-86ee-4800-8cb6-145a6711ccf0",
+    "Company": "Samsung",
+    "Item": "Laptop",
+    "PurchasePrice": 50000,
+    "SellingPrice": 51000,
+    "Stock": 4000
+  }
+]
