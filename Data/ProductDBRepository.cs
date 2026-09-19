@@ -8,7 +8,7 @@ namespace Transaction.DataLogic
     public class ProductDBRepository : IProductRepository
     {
         private readonly string _connectionString =
-            "Data Source=.\\SQLEXPRESS;Initial Catalog=TransactionsDB;Integrated Security=True;TrustServerCertificate=True;";
+            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=TransactionsDB;Integrated Security=True;TrustServerCertificate=True;";
 
         public void AddProduct(Product product)
         {
