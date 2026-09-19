@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
 using Transaction.Models;
 using Transaction.BusinessLogic;
 
@@ -7,7 +8,15 @@ namespace Transaction
 {
     internal class Program
     {
+        // Must stay above emailService (static fields initialize in order)
+        static IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+
         static ProductService service = new ProductService();
+        static EmailService emailService = new EmailService(configuration);
+        static string recipientEmail = "admin@example.com";
 
         static void Main(string[] args)
         {
@@ -47,6 +56,7 @@ namespace Transaction
 
                     service.AddProduct(p);
                     Console.WriteLine("Item Added Successfully!");
+                    Notify("Item Added", p);
                 }
                 else if (choice == 2)
                 {
@@ -55,7 +65,7 @@ namespace Transaction
                     foreach (var p in products)
                     {
                         Console.WriteLine($"\nItem Number: {i}");
-                        Console.WriteLine($"ID: {p.Id}"); 
+                        Console.WriteLine($"ID: {p.Id}");
                         Console.WriteLine("Name: " + p.GetName());
                         Console.WriteLine("Company: " + p.GetCompany());
                         Console.WriteLine("Details: " + p.GetDetails());
@@ -69,8 +79,10 @@ namespace Transaction
                     var products = service.GetProducts();
                     if (index >= 0 && index < products.Count)
                     {
-                        service.DeleteProduct(products[index].Id);
+                        Product deleted = products[index];
+                        service.DeleteProduct(deleted.Id);
                         Console.WriteLine("Item Deleted!");
+                        Notify("Item Deleted", deleted);
                     }
                     else
                     {
@@ -85,7 +97,7 @@ namespace Transaction
                     {
                         Console.WriteLine($"\nItem Number: {i}");
                         Console.WriteLine($"ID: {p.Id}");
-                        Console.WriteLine("Details: " + p.GetDetails()); 
+                        Console.WriteLine("Details: " + p.GetDetails());
                         i++;
                     }
 
@@ -117,6 +129,7 @@ namespace Transaction
 
                         service.UpdateProduct(product);
                         Console.WriteLine("Item Updated!");
+                        Notify("Item Updated", product);
                     }
                     else
                     {
@@ -131,6 +144,20 @@ namespace Transaction
                 {
                     Console.WriteLine("Invalid choice.");
                 }
+            }
+        }
+
+        // Sends the email; a failed send never crashes the program
+        static void Notify(string action, Product product)
+        {
+            try
+            {
+                emailService.SendEmail(action, product, recipientEmail);
+                Console.WriteLine("Email notification sent.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Email failed: " + ex.Message);
             }
         }
 
